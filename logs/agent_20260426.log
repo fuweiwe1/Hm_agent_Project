@@ -46,3 +46,57 @@ AttributeError: 'VectorStoreService' object has no attribute 'spliter'
 2026-04-26 15:58:56,251 - agent -INFO -vector_store.py:71 -[加载知识库]C:\code\python_code\ai\P6_Agent项目案例\data\故障排除.txt内容已经存在知识库内，跳过
 2026-04-26 15:58:56,251 - agent -INFO -vector_store.py:71 -[加载知识库]C:\code\python_code\ai\P6_Agent项目案例\data\维护保养.txt内容已经存在知识库内，跳过
 2026-04-26 15:58:56,251 - agent -INFO -vector_store.py:71 -[加载知识库]C:\code\python_code\ai\P6_Agent项目案例\data\选购指南.txt内容已经存在知识库内，跳过
+2026-04-26 17:35:01,650 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
+2026-04-26 17:35:01,650 - agent -DEBUG -middleware.py:42 -[log_before_model]HumanMessage | 扫地机器人在我所在的地区的气温下如何保养
+2026-04-26 17:35:04,289 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_user_location
+2026-04-26 17:35:04,289 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:35:04,289 - agent -INFO -middleware.py:24 -[tool monitor]工具get_user_location调用成功
+2026-04-26 17:35:04,290 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有3条消息。
+2026-04-26 17:35:04,290 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 杭州
+2026-04-26 17:35:06,637 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_weather
+2026-04-26 17:35:06,638 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'city': '杭州'}
+2026-04-26 17:35:06,638 - agent -INFO -middleware.py:24 -[tool monitor]工具get_weather调用成功
+2026-04-26 17:35:06,639 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有5条消息。
+2026-04-26 17:35:06,640 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 城市杭州天气为晴天，气温26摄氏度，空气湿度50%，南风1级，AQI21，最近6小时降雨概率极低
+2026-04-26 17:35:09,695 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:35:09,695 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '扫地机器人在26摄氏度和50%湿度环境下的保养方法'}
+2026-04-26 17:35:13,772 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:35:13,773 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有7条消息。
+2026-04-26 17:35:13,773 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 在26摄氏度和50%湿度环境下，扫地机器人保养应每日使用后用干软布擦拭机身外壳，去除灰尘和水渍；每次清扫完成后及时清理防撞条缝隙中的毛发和线头，防止卡顿。该环境未在参考资料中被特别归类为特殊场景（如干燥、油污或高湿），因此按通用基础维护执行即可。
+2026-04-26 17:40:07,554 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
+2026-04-26 17:40:07,554 - agent -DEBUG -middleware.py:42 -[log_before_model]HumanMessage | 给我生成我的使用报告
+2026-04-26 17:40:09,653 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_user_id
+2026-04-26 17:40:09,653 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:40:09,654 - agent -INFO -middleware.py:24 -[tool monitor]工具get_user_id调用成功
+2026-04-26 17:40:09,654 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有3条消息。
+2026-04-26 17:40:09,654 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 1006
+2026-04-26 17:40:11,413 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_current_month
+2026-04-26 17:40:11,413 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:40:11,414 - agent -INFO -middleware.py:24 -[tool monitor]工具get_current_month调用成功
+2026-04-26 17:40:11,414 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有5条消息。
+2026-04-26 17:40:11,415 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 2025-10
+2026-04-26 17:40:13,666 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：fill_context_for_report
+2026-04-26 17:40:13,666 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:40:13,666 - agent -INFO -middleware.py:24 -[tool monitor]工具fill_context_for_report调用成功
+2026-04-26 17:40:13,667 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有7条消息。
+2026-04-26 17:40:13,667 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | fill_context_for_report已调用
+2026-04-26 17:40:16,425 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：fetch_external_data
+2026-04-26 17:40:16,426 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'user_id': '1006', 'month': '2025-10'}
+2026-04-26 17:40:16,428 - agent -INFO -middleware.py:24 -[tool monitor]工具fetch_external_data调用成功
+2026-04-26 17:40:16,429 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有9条消息。
+2026-04-26 17:40:16,429 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | {"特征": "150㎡别墅 | 儿童 | 多层", "效率": "跨楼层失败:2次/周\\n玩具避障率:80%", "耗材": "边刷寿命:剩余55天\\n集尘袋消耗:1.0个/月", "对比": "跨楼层导航优化完成+清洁效率提升10%"}
+2026-04-26 17:40:20,448 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:40:20,448 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '多层别墅扫地机器人跨楼层导航问题解决方案'}
+2026-04-26 17:40:23,161 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:40:23,162 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有11条消息。
+2026-04-26 17:40:23,162 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 多层别墅扫地机器人跨楼层导航问题的解决方案为：为每层楼单独建图，并在更换楼层使用前清理机器人底部和传感器，校准扫拖参数；若机器人无法自动切换地图，需手动切换已单独保存的各楼层地图。
+2026-04-26 17:40:25,206 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:40:25,206 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '有儿童家庭扫地机器人玩具避障优化建议'}
+2026-04-26 17:40:28,305 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:40:28,307 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有13条消息。
+2026-04-26 17:40:28,307 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 针对儿童家庭中扫地机器人玩具避障优化，建议：清理机身前方避障摄像头和传感器上的灰尘或水渍；在APP中开启“高级避障模式”并重新建图；确保防撞条回弹正常；及时清理地面拖鞋、玩具等轻小障碍物以减少碰撞。
+2026-04-26 17:40:30,988 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:40:30,989 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '扫地机器人边刷和集尘袋保养更换周期'}
+2026-04-26 17:40:33,520 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:40:33,521 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有15条消息。
+2026-04-26 17:40:33,521 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 边刷磨损至刷毛长度小于1厘米时需立即更换；集尘袋在普通家庭建议每1-2个月更换一次，宠物家庭建议每半个月至1个月更换一次。
