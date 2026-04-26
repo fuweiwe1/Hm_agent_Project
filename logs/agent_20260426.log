@@ -100,3 +100,64 @@ AttributeError: 'VectorStoreService' object has no attribute 'spliter'
 2026-04-26 17:40:33,520 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
 2026-04-26 17:40:33,521 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有15条消息。
 2026-04-26 17:40:33,521 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 边刷磨损至刷毛长度小于1厘米时需立即更换；集尘袋在普通家庭建议每1-2个月更换一次，宠物家庭建议每半个月至1个月更换一次。
+2026-04-26 17:57:07,634 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
+2026-04-26 17:57:07,634 - agent -DEBUG -middleware.py:42 -[log_before_model]HumanMessage | 在我当前城市的温度下，机器人如何选购
+2026-04-26 17:57:10,647 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_user_location
+2026-04-26 17:57:10,648 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:57:10,648 - agent -INFO -middleware.py:24 -[tool monitor]工具get_user_location调用成功
+2026-04-26 17:57:10,681 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有3条消息。
+2026-04-26 17:57:10,682 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 杭州
+2026-04-26 17:57:13,540 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_weather
+2026-04-26 17:57:13,540 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'city': '杭州'}
+2026-04-26 17:57:13,541 - agent -INFO -middleware.py:24 -[tool monitor]工具get_weather调用成功
+2026-04-26 17:57:14,068 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有5条消息。
+2026-04-26 17:57:14,068 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 城市杭州天气为晴天，气温26摄氏度，空气湿度50%，南风1级，AQI21，最近6小时降雨概率极低
+2026-04-26 17:57:18,631 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:57:18,631 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '温度26摄氏度湿度50%环境下如何选购扫地机器人'}
+2026-04-26 17:57:25,206 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:57:27,364 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有7条消息。
+2026-04-26 17:57:27,365 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 在温度26摄氏度、湿度50%的环境下选购扫地机器人，应优先明确使用场景（如户型大小、是否养宠），选择吸力≥3000Pa且可调节的机型；导航方面，激光导航定位精准、抗干扰强，适合复杂户型，视觉导航需避免强光环境；建议现场试用测试导航、避障、吸力和拖地效果，并参考真实用户评价，重点关注续航、避障和售后；预算3000元内可选激光导航+旋转拖布的基础款，5000元以上可考虑带自动集尘和热风烘干功能的机型。
+2026-04-26 17:58:11,349 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
+2026-04-26 17:58:11,350 - agent -DEBUG -middleware.py:42 -[log_before_model]HumanMessage | 我预算3000元，小户型，家里有狗，选哪个型号
+2026-04-26 17:58:13,293 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:58:13,293 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '3000元预算 小户型 有宠物 扫地机器人推荐'}
+2026-04-26 17:58:16,427 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:58:17,399 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有3条消息。
+2026-04-26 17:58:17,399 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 3000元预算内，小户型且有宠物的家庭应选择具备激光导航、吸力≥3000Pa、防缠绕功能的扫地机器人，可考虑基础款如米家1C或石头T4，优先查看真实用户对避障、续航和售后的评价。
+2026-04-26 17:58:48,025 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
+2026-04-26 17:58:48,026 - agent -DEBUG -middleware.py:42 -[log_before_model]HumanMessage | 帮我生成我的使用报告
+2026-04-26 17:58:51,493 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_user_id
+2026-04-26 17:58:51,493 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:58:51,494 - agent -INFO -middleware.py:24 -[tool monitor]工具get_user_id调用成功
+2026-04-26 17:58:51,549 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有3条消息。
+2026-04-26 17:58:51,549 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 1002
+2026-04-26 17:58:54,010 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：get_current_month
+2026-04-26 17:58:54,010 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:58:54,012 - agent -INFO -middleware.py:24 -[tool monitor]工具get_current_month调用成功
+2026-04-26 17:58:54,098 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有5条消息。
+2026-04-26 17:58:54,098 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 2025-02
+2026-04-26 17:58:56,646 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：fill_context_for_report
+2026-04-26 17:58:56,648 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{}
+2026-04-26 17:58:56,648 - agent -INFO -middleware.py:24 -[tool monitor]工具fill_context_for_report调用成功
+2026-04-26 17:58:56,938 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有7条消息。
+2026-04-26 17:58:56,938 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | fill_context_for_report已调用
+2026-04-26 17:58:59,498 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：fetch_external_data
+2026-04-26 17:58:59,498 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'user_id': '1002', 'month': '2025-02'}
+2026-04-26 17:58:59,500 - agent -INFO -middleware.py:24 -[tool monitor]工具fetch_external_data调用成功
+2026-04-26 17:59:00,728 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有9条消息。
+2026-04-26 17:59:00,729 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | {"特征": "70㎡公寓 | 情侣 | 瓷砖", "效率": "覆盖率:87%\\n避障失败:3次/周（电线缠绕）", "耗材": "边刷磨损:中度+\\n尘盒清理:每2天", "对比": "拖地功能使用率低于同类32%"}
+2026-04-26 17:59:02,860 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:59:02,861 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '边刷磨损保养建议'}
+2026-04-26 17:59:06,412 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:59:07,631 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有11条消息。
+2026-04-26 17:59:07,631 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 边刷磨损会导致边角清扫不彻底，应拆卸机身底部边刷卡扣进行更换，按压卡紧即可；若安装后松动或旋转晃动，需检查卡扣是否断裂、是否为原装边刷并重新安装；若边刷旋转时与机身摩擦产生异响，应调整安装松紧度、更换变形边刷或清理机身杂物。
+2026-04-26 17:59:09,971 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:59:09,972 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '拖地功能使用率低的原因和建议'}
+2026-04-26 17:59:13,669 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:59:15,083 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有13条消息。
+2026-04-26 17:59:15,083 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 拖地功能使用率低可能与门槛跨越后自动关闭、不同地面清洁参数未优化、拖布掉毛影响体验等因素有关。建议开启“越障后恢复拖地”功能（若机型支持），在APP中设置分区清扫以适配不同地面类型，更换无尘拖布并正确预处理，以及对床底、沙发底等区域设置“深度拖扫”提升清洁效果。
+2026-04-26 17:59:17,563 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-04-26 17:59:17,563 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '扫地机器人避障失败电线缠绕处理方法'}
+2026-04-26 17:59:20,819 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-04-26 17:59:21,897 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有15条消息。
+2026-04-26 17:59:21,897 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 扫地机器人避障失败导致电线缠绕时，应先断电，检查滚刷、轮子是否被电线等异物缠绕或卡住，使用配套清理工具或剪刀小心清除缠绕物，清理后重启机器人。同时可检查避障传感器是否脏污，用干布擦拭以恢复避障功能。
