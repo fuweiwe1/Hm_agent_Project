@@ -1,0 +1,14 @@
+2026-04-25 10:54:04,998 - agent -INFO -logger_handler.py:53 -信息日志
+2026-04-25 10:54:04,998 - agent -ERROR -logger_handler.py:54 -错误日志
+2026-04-25 10:54:04,998 - agent -WARNING -logger_handler.py:55 -警告日志
+2026-04-25 10:54:04,998 - agent -DEBUG -logger_handler.py:56 -调试日志
+2026-04-25 11:03:48,211 - agent -INFO -logger_handler.py:59 -信息日志
+2026-04-25 11:03:48,213 - agent -ERROR -logger_handler.py:60 -错误日志
+2026-04-25 11:03:48,213 - agent -WARNING -logger_handler.py:61 -警告日志
+2026-04-25 11:03:48,213 - agent -DEBUG -logger_handler.py:62 -调试日志
+2026-04-25 11:05:21,750 - agent -INFO -logger_handler.py:59 -信息日志
+2026-04-25 11:05:21,750 - agent -ERROR -logger_handler.py:60 -错误日志
+2026-04-25 11:05:21,751 - agent -WARNING -logger_handler.py:61 -警告日志
+2026-04-25 11:05:21,751 - agent -DEBUG -logger_handler.py:62 -调试日志
+2026-04-25 11:53:06,413 - agent -ERROR -prompt_loader.py:22 -[load_rag_prompts]在yaml配置项中没有rag_summarize_prompt_path配置项
+2026-04-25 11:54:08,795 - agent -ERROR -prompt_loader.py:37 -[load_report_prompts]在yaml配置项中没有report_prompt_path配置项
