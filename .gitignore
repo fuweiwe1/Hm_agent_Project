@@ -1,0 +1,6 @@
+config/rag.local.yml
+.env
+.env.*
+__pycache__/
+*.pyc
+debug_sqlite_backup/
