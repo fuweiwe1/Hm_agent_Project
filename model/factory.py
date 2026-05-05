@@ -6,6 +6,12 @@ from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_community. chat_models. tongyi import ChatTongyi
 from utils.config_handler import rag_conf
 
+def get_dashscope_api_key() -> str:
+    api_key = rag_conf.get("dashscope_api_key")
+    if not api_key:
+        raise ValueError("Please set dashscope_api_key in config/rag.yml")
+    return api_key
+
 class BaseModelFactory(ABC):
     @abstractmethod
     def generator (self) -> Optional [Embeddings | BaseChatModel]:
@@ -13,11 +19,17 @@ class BaseModelFactory(ABC):
 
 class ChatModelFactory(BaseModelFactory):
     def generator (self) -> Optional [Embeddings | BaseChatModel]:
-        return ChatTongyi(model=rag_conf ["chat_model_name"])
+        return ChatTongyi(
+            model=rag_conf["chat_model_name"],
+            dashscope_api_key=get_dashscope_api_key()
+        )
     
 class EmbeddingsFactory(BaseModelFactory):
     def generator(self) -> Optional [Embeddings | BaseChatModel]:
-        return DashScopeEmbeddings(model=rag_conf ["embedding_model_name"])
+        return DashScopeEmbeddings(
+            model=rag_conf["embedding_model_name"],
+            dashscope_api_key=get_dashscope_api_key()
+        )
     
 chat_model = ChatModelFactory().generator()
 
