@@ -9,7 +9,7 @@ from utils.config_handler import rag_conf
 def get_dashscope_api_key() -> str:
     api_key = rag_conf.get("dashscope_api_key")
     if not api_key:
-        raise ValueError("Please set dashscope_api_key in config/rag.yml")
+        raise ValueError("Please set dashscope_api_key in config/rag.local.yml or DASHSCOPE_API_KEY")
     return api_key
 
 class BaseModelFactory(ABC):

@@ -1,0 +1,10 @@
+fastapi
+httpx
+langchain
+langchain-chroma
+langchain-community
+langgraph
+pydantic
+pyyaml
+streamlit
+uvicorn
