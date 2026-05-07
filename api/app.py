@@ -40,6 +40,14 @@ def get_user_profile(user_id: str, city: str):
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
+@app.get("/business/users/{user_id}/months", response_model=list[str])
+def list_user_months(user_id: str):
+    try:
+        return business_service.list_available_months(user_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
 @app.get("/business/users/{user_id}/usage-records/latest", response_model=UsageRecord)
 def get_latest_usage_record(user_id: str):
     try:

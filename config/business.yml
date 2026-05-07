@@ -1,0 +1,5 @@
+provider: sqlite
+database_path: data/business.sqlite3
+seed_csv_path: data/external/records.csv
+http_base_url: ""
+http_timeout_seconds: 10

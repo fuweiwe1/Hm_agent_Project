@@ -1,10 +1,8 @@
-import csv
 from datetime import datetime
 from functools import lru_cache
 
+from repositories.business_repository import BusinessRepository, create_business_repository
 from schemas.app_models import BusinessLookupResult, UsageRecord, UserProfile, UserContext, WeatherInfo
-from utils.config_handler import agent_conf
-from utils.path_tool import get_abs_path
 
 
 CITY_WEATHER = {
@@ -39,43 +37,31 @@ CITY_WEATHER = {
 
 
 class BusinessService:
-    def __init__(self):
-        self._records_by_user: dict[str, dict[str, UsageRecord]] = {}
-        self._load_usage_records()
-
-    def _load_usage_records(self) -> None:
-        data_path = get_abs_path(agent_conf["external_data_path"])
-        with open(data_path, "r", encoding="utf-8", newline="") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                record = UsageRecord(
-                    user_id=row["用户ID"],
-                    month=row["时间"],
-                    feature=row["特征"],
-                    efficiency=row["清洁效率"],
-                    consumables=row["耗材"],
-                    comparison=row["对比"],
-                )
-                self._records_by_user.setdefault(record.user_id, {})[record.month] = record
+    def __init__(self, repository: BusinessRepository):
+        self.repository = repository
 
     def list_user_ids(self) -> list[str]:
-        return sorted(self._records_by_user.keys())
+        return self.repository.list_user_ids()
+
+    def list_available_months(self, user_id: str) -> list[str]:
+        months = self.repository.list_available_months(user_id)
+        if not months:
+            raise KeyError(f"用户 {user_id} 不存在")
+        return months
 
     def get_current_month(self) -> str:
         return datetime.now().strftime("%Y-%m")
 
     def get_user_profile(self, user_context: UserContext) -> UserProfile:
-        records = self._records_by_user.get(user_context.user_id)
-        if not records:
+        latest_record = self.repository.get_latest_usage_record(user_context.user_id)
+        if latest_record is None:
             raise KeyError(f"用户 {user_context.user_id} 不存在")
 
-        ordered_months = sorted(records.keys())
-        latest_record = records[ordered_months[-1]]
         return UserProfile(
             user_id=user_context.user_id,
             city=user_context.city,
             household_profile=latest_record.feature,
-            available_months=ordered_months,
+            available_months=self.list_available_months(user_context.user_id),
         )
 
     def get_weather(self, city: str) -> WeatherInfo:
@@ -93,39 +79,40 @@ class BusinessService:
         )
 
     def get_usage_record(self, user_id: str, month: str) -> UsageRecord:
-        try:
-            return self._records_by_user[user_id][month]
-        except KeyError as exc:
-            raise KeyError(f"未找到用户 {user_id} 在 {month} 的使用记录") from exc
+        record = self.repository.get_usage_record(user_id, month)
+        if record is None:
+            raise KeyError(f"未找到用户 {user_id} 在 {month} 的使用记录")
+        return record.to_usage_record()
 
     def get_latest_usage_record(self, user_id: str) -> UsageRecord:
-        records = self._records_by_user.get(user_id)
-        if not records:
+        record = self.repository.get_latest_usage_record(user_id)
+        if record is None:
             raise KeyError(f"用户 {user_id} 不存在")
-
-        latest_month = sorted(records.keys())[-1]
-        return records[latest_month]
+        return record.to_usage_record()
 
     def resolve_usage_record(self, user_id: str, preferred_month: str | None = None) -> BusinessLookupResult:
         if preferred_month:
-            record = self._records_by_user.get(user_id, {}).get(preferred_month)
+            record = self.repository.get_usage_record(user_id, preferred_month)
             if record is not None:
                 return BusinessLookupResult(
                     requested_month=preferred_month,
                     resolved_month=preferred_month,
                     used_latest_available=False,
-                    usage_record=record,
+                    usage_record=record.to_usage_record(),
                 )
 
-        latest_record = self.get_latest_usage_record(user_id)
+        latest_record = self.repository.get_latest_usage_record(user_id)
+        if latest_record is None:
+            raise KeyError(f"用户 {user_id} 不存在")
+
         return BusinessLookupResult(
             requested_month=preferred_month,
             resolved_month=latest_record.month,
             used_latest_available=preferred_month is not None and preferred_month != latest_record.month,
-            usage_record=latest_record,
+            usage_record=latest_record.to_usage_record(),
         )
 
 
 @lru_cache(maxsize=1)
 def get_business_service() -> BusinessService:
-    return BusinessService()
+    return BusinessService(create_business_repository())

@@ -1,2 +1,9 @@
 2026-05-07 09:06:03,053 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
 2026-05-07 09:06:03,054 - agent -DEBUG -middleware.py:42 -[log_before_model]HumanMessage | ????????????????????????
+2026-05-07 09:52:33,347 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
+2026-05-07 09:52:33,349 - agent -DEBUG -middleware.py:42 -[log_before_model]HumanMessage | 家里很大，想选续航强一点的机器人，选哪一款
+2026-05-07 09:52:35,660 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-05-07 09:52:35,663 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '续航能力强的扫地机器人推荐 大户型'}
+2026-05-07 09:52:42,695 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-05-07 09:52:42,700 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有3条消息。
+2026-05-07 09:52:42,700 - agent -DEBUG -middleware.py:42 -[log_before_model]ToolMessage | 针对大户型且注重续航能力的扫地机器人选购，参考资料中虽未直接提及“续航”参数，但可结合使用场景推导关键需求：大户型通常对应复杂环境，应优先选择激光导航机型，因其定位精准、抗干扰强，更适合大面积和多房间清扫。同时，建议选择吸力≥3000Pa的机型以保障清洁效率，并关注尘盒容量（尤其有宠物时需大尘盒）。此外，为提升单次作业覆盖范围，应确保机器人具备良好的越障能力（≥2cm）和较低机身高度（≤7.5cm），以便高效通行于各类家居环境，间接支持长时间连续工作。

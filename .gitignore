@@ -4,3 +4,5 @@ config/rag.local.yml
 __pycache__/
 *.pyc
 debug_sqlite_backup/
+data/business.sqlite3
+*.sqlite3-journal
