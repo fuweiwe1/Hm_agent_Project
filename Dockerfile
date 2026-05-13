@@ -4,7 +4,7 @@ WORKDIR /app
 
 # 依赖层（单独复制，利用缓存）
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 应用代码
 COPY . .

@@ -5,7 +5,6 @@ services:
       - "8000:8000"
     environment:
       - APP_JWT_SECRET=${APP_JWT_SECRET:-dev-secret-change-me}
-      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
     volumes:
       - ./config:/app/config
       - ./data:/app/data

@@ -47,6 +47,11 @@ def create_business_repository() -> BusinessRepository:
 
         return SQLiteBusinessRepository()
 
+    if provider == "postgresql":
+        from repositories.postgresql_business_repository import PostgreSQLBusinessRepository
+
+        return PostgreSQLBusinessRepository()
+
     if provider == "http":
         from repositories.http_business_repository import HTTPBusinessRepository
 

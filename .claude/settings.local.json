@@ -15,7 +15,10 @@
       "Bash(python -c \"from slowapi import Limiter; print\\('slowapi OK'\\)\")",
       "Bash(pip show *)",
       "Bash(python -m pytest tests/ -v --tb=short)",
-      "Bash(python -m pytest tests/ -q)"
+      "Bash(python -m pytest tests/ -q)",
+      "WebFetch(domain:github.com)",
+      "Bash(alembic revision *)",
+      "Bash(python -m alembic upgrade head --sql)"
     ]
   }
 }

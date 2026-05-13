@@ -1,5 +1,11 @@
 provider: sqlite
+
+# ── SQLite 配置 ──
 database_path: data/business.sqlite3
+
+# ── PostgreSQL 配置（切换 provider 为 postgresql 时生效）──
+database_url: "postgresql://user:pass@localhost:5432/robot_agent"
+
 seed_csv_path: data/external/records.csv
 http_base_url: ""
 http_timeout_seconds: 10

@@ -1,3 +1,5 @@
+alembic
+dashscope
 fastapi
 httpx
 langchain
@@ -5,6 +7,7 @@ langchain-chroma
 langchain-community
 langgraph
 python-jose[cryptography]
+psycopg2-binary
 pydantic
 pyyaml
 slowapi
