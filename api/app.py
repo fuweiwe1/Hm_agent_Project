@@ -5,6 +5,7 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
 from api.auth import ensure_current_user_access, get_authenticated_user, get_user_context
+from api.content_safety import ContentSafetyError, validate_message
 from api.request_id import RequestIdMiddleware
 from api.security import SecurityHeadersMiddleware
 from schemas.app_models import (
@@ -154,6 +155,10 @@ def get_weather(city: str, _: AuthenticatedUser = Depends(get_authenticated_user
 @app.post("/api/chat", response_model=ChatResponse)
 @limiter.limit("10/minute")
 def chat(request: Request, body: ChatRequest, user_context: UserContext = Depends(get_user_context)):
+    try:
+        validate_message(body.message)
+    except ContentSafetyError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
     try:
         return chat_service.handle(body, user_context)
     except KeyError as exc:

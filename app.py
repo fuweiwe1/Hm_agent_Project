@@ -5,7 +5,7 @@ import httpx
 import streamlit as st
 
 
-API_BASE_URL = os.getenv("AGENT_API_BASE_URL", "http://127.0.0.1:8000")
+API_BASE_URL = os.getenv("AGENT_API_BASE_URL", "https://127.0.0.1")
 DEFAULT_BEARER_TOKEN = os.getenv("AGENT_DEMO_BEARER_TOKEN", "")
 
 
@@ -21,6 +21,7 @@ def get_json(path: str, token: str) -> dict:
         f"{API_BASE_URL}{path}",
         headers=build_headers(token),
         timeout=10.0,
+        verify=False,  # 自签证书
     )
     response.raise_for_status()
     return response.json()
@@ -32,6 +33,7 @@ def post_json(path: str, payload: dict, token: str) -> dict:
         json=payload,
         headers=build_headers(token),
         timeout=120.0,
+        verify=False,  # 自签证书
     )
     response.raise_for_status()
     return response.json()

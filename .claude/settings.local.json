@@ -18,7 +18,10 @@
       "Bash(python -m pytest tests/ -q)",
       "WebFetch(domain:github.com)",
       "Bash(alembic revision *)",
-      "Bash(python -m alembic upgrade head --sql)"
+      "Bash(python -m alembic upgrade head --sql)",
+      "Bash(python *)",
+      "Bash(openssl version *)",
+      "Bash(openssl req *)"
     ]
   }
 }
