@@ -9,6 +9,7 @@ langgraph
 python-jose[cryptography]
 psycopg2-binary
 pydantic
+pytest
 pyyaml
 slowapi
 streamlit
