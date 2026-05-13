@@ -1,11 +1,11 @@
 from typing import Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class UserContext(BaseModel):
-    user_id: str = Field(..., description="Authenticated user id")
-    city: str = Field(..., description="Authenticated user's city")
+    user_id: str = Field(..., min_length=1, max_length=64, description="Authenticated user id")
+    city: str = Field(..., min_length=1, max_length=64, description="Authenticated user's city")
 
 
 class AuthenticatedUser(BaseModel):
@@ -83,11 +83,18 @@ class BusinessLookupResult(BaseModel):
 
 
 class ChatRequest(BaseModel):
-    message: str
+    message: str = Field(..., min_length=1, max_length=4000, description="User chat message")
     user_context: Optional[UserContext] = Field(
         default=None,
         description="Deprecated. User identity now comes from the bearer token.",
     )
+
+    @field_validator("message")
+    @classmethod
+    def message_must_not_be_blank(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("message must not be blank")
+        return v
 
 
 class ChatResponse(BaseModel):
@@ -103,7 +110,11 @@ class ReportRequest(BaseModel):
         default=None,
         description="Deprecated. User identity now comes from the bearer token.",
     )
-    month: Optional[str] = None
+    month: Optional[str] = Field(
+        default=None,
+        pattern=r"^\d{4}-\d{2}$",
+        description="Month in YYYY-MM format",
+    )
 
 
 class ReportResponse(BaseModel):

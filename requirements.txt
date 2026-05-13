@@ -7,5 +7,6 @@ langgraph
 python-jose[cryptography]
 pydantic
 pyyaml
+slowapi
 streamlit
 uvicorn

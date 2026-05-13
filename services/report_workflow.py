@@ -7,6 +7,7 @@ from agent.tools.agent_tools import get_rag_service
 from model.factory import chat_model
 from schemas.app_models import ReportRequest, ReportResponse, UserContext
 from services.business_service import BusinessService
+from utils.llm_utils import llm_retry
 from utils.logger_handler import logger
 from utils.prompt_loader import load_report_workflow_prompt
 
@@ -46,7 +47,7 @@ class ReportWorkflowService:
         })
 
         rag_insights = self._collect_rag_insights(lookup_result.usage_record)
-        report = self.chain.invoke(
+        report = self._invoke_chain(
             {
                 "user_profile": profile.to_prompt_text(),
                 "requested_month": preferred_month,
@@ -69,6 +70,10 @@ class ReportWorkflowService:
             resolved_month=lookup_result.resolved_month,
             used_latest_available=lookup_result.used_latest_available,
         )
+
+    @llm_retry(max_retries=2, backoff_seconds=1.0)
+    def _invoke_chain(self, inputs: dict) -> str:
+        return self.chain.invoke(inputs)
 
     def _collect_rag_insights(self, usage_record) -> str:
         queries = self._build_rag_queries(usage_record)

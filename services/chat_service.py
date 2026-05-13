@@ -35,7 +35,11 @@ class ChatService:
             )
 
         agent = ReactAgent(self.business_service, user_context)
-        reply = "".join(agent.execute_stream(request.message)).strip()
+        try:
+            reply = "".join(agent.execute_stream(request.message)).strip()
+        except Exception as exc:
+            logger.error("agent_execution_failed", extra={"error": str(exc)[:300]})
+            reply = "抱歉，智能客服暂时无法响应，请稍后重试。"
         return ChatResponse(
             mode="agent",
             reply=reply,

@@ -1,10 +1,20 @@
 {
   "permissions": {
     "allow": [
+      "Read (*)",
+      "Write(*)",
+      "Edit(*)",
+      "Bash (pnpm *)",
+      "Bash(node *)",
+      "Bash (npx *)",
       "Bash(python -m unittest tests.test_api_auth -v)",
       "Bash(python scripts/generate_demo_jwt.py --user-id test001 --city Shenzhen --role user)",
       "Bash(curl -s -H 'Authorization: Bearer __TRACKED_VAR__' http://127.0.0.1:8000/auth/me)",
-      "Bash(python -c ' *)"
+      "Bash(python -c ' *)",
+      "Bash(pip install *)",
+      "Bash(python -c \"from slowapi import Limiter; print\\('slowapi OK'\\)\")",
+      "Bash(pip show *)",
+      "Bash(python -m pytest tests/ -v --tb=short)"
     ]
   }
 }

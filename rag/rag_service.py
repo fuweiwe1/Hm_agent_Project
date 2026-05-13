@@ -1,3 +1,4 @@
+from functools import lru_cache
 from typing import Optional
 
 from langchain_core.documents import Document
@@ -6,6 +7,7 @@ from langchain_core.prompts import PromptTemplate
 
 from model.factory import chat_model
 from rag.vector_store import VectorStoreService
+from utils.llm_utils import llm_retry
 from utils.logger_handler import logger
 from utils.prompt_loader import load_rag_prompts
 
@@ -38,7 +40,8 @@ class RagSummarizeService:
         self._ensure_initialized()
         return self.retriever.invoke(query)
 
-    def rag_summarize(self, query: str) -> str:
+    @llm_retry(max_retries=2, backoff_seconds=1.0)
+    def _do_rag_summarize(self, query: str) -> str:
         self._ensure_initialized()
 
         context_docs = self.retriever_docs(query)
@@ -54,6 +57,16 @@ class RagSummarizeService:
                 "context": "\n".join(context_lines),
             }
         )
+
+    def rag_summarize(self, query: str) -> str:
+        return _rag_summarize_cached(query)
+
+
+@lru_cache(maxsize=256)
+def _rag_summarize_cached(query: str) -> str:
+    """带缓存的 RAG 摘要，相同 query 只调一次 LLM。"""
+    service = get_rag_service()
+    return service._do_rag_summarize(query)
 
 
 if __name__ == "__main__":
