@@ -69,6 +69,11 @@ def _rag_summarize_cached(query: str) -> str:
     return service._do_rag_summarize(query)
 
 
+@lru_cache(maxsize=1)
+def get_rag_service() -> RagSummarizeService:
+    return RagSummarizeService()
+
+
 if __name__ == "__main__":
     rag = RagSummarizeService()
     result = rag.rag_summarize("小户型适合哪些扫地机器人")

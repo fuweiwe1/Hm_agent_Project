@@ -3,7 +3,7 @@ import re
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 
-from agent.tools.agent_tools import get_rag_service
+from rag.rag_service import get_rag_service
 from model.factory import chat_model
 from schemas.app_models import ReportRequest, ReportResponse, UserContext
 from services.business_service import BusinessService

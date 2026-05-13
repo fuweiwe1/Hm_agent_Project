@@ -1,21 +1,16 @@
-from functools import lru_cache
-
 from langchain_core.tools import tool
 
-from rag.rag_service import RagSummarizeService
+from rag.rag_service import get_rag_service
 from schemas.app_models import UserContext
 from services.business_service import BusinessService
 
 
-@lru_cache(maxsize=1)
-def get_rag_service() -> RagSummarizeService:
-    return RagSummarizeService()
-
-
 def build_agent_tools(user_context: UserContext, business_service: BusinessService):
+    _rag = get_rag_service()
+
     @tool(description="从向量知识库中检索扫地机器人相关资料并生成总结")
     def rag_summarize(query: str) -> str:
-        return get_rag_service().rag_summarize(query)
+        return _rag.rag_summarize(query)
 
     @tool(description="获取指定城市的天气信息；如果未提供城市则默认使用当前用户所在城市")
     def get_weather(city: str = "") -> str:
