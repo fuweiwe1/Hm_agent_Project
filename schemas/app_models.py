@@ -4,8 +4,19 @@ from pydantic import BaseModel, Field
 
 
 class UserContext(BaseModel):
-    user_id: str = Field(..., description="当前请求用户ID")
-    city: str = Field(..., description="当前请求用户所在城市")
+    user_id: str = Field(..., description="Authenticated user id")
+    city: str = Field(..., description="Authenticated user's city")
+
+
+class AuthenticatedUser(BaseModel):
+    user_id: str
+    city: str
+    tenant_id: Optional[str] = None
+    roles: list[str] = Field(default_factory=list)
+    token_subject: Optional[str] = None
+
+    def to_user_context(self) -> UserContext:
+        return UserContext(user_id=self.user_id, city=self.city)
 
 
 class WeatherInfo(BaseModel):
@@ -19,13 +30,13 @@ class WeatherInfo(BaseModel):
 
     def to_prompt_text(self) -> str:
         return (
-            f"城市：{self.city}\n"
-            f"天气：{self.condition}\n"
-            f"气温：{self.temperature_c}摄氏度\n"
-            f"湿度：{self.humidity_percent}%\n"
-            f"风力：{self.wind_level}\n"
-            f"AQI：{self.aqi}\n"
-            f"降雨概率：{self.rain_probability}"
+            f"City: {self.city}\n"
+            f"Condition: {self.condition}\n"
+            f"Temperature: {self.temperature_c}C\n"
+            f"Humidity: {self.humidity_percent}%\n"
+            f"Wind: {self.wind_level}\n"
+            f"AQI: {self.aqi}\n"
+            f"Rain probability: {self.rain_probability}"
         )
 
 
@@ -38,10 +49,10 @@ class UserProfile(BaseModel):
     def to_prompt_text(self) -> str:
         months = ", ".join(self.available_months)
         return (
-            f"用户ID：{self.user_id}\n"
-            f"所在城市：{self.city}\n"
-            f"家庭画像：{self.household_profile}\n"
-            f"可用记录月份：{months}"
+            f"User ID: {self.user_id}\n"
+            f"City: {self.city}\n"
+            f"Household profile: {self.household_profile}\n"
+            f"Available months: {months}"
         )
 
 
@@ -55,12 +66,12 @@ class UsageRecord(BaseModel):
 
     def to_prompt_text(self) -> str:
         return (
-            f"用户ID：{self.user_id}\n"
-            f"月份：{self.month}\n"
-            f"家庭画像：{self.feature}\n"
-            f"清洁效率：{self.efficiency}\n"
-            f"耗材状态：{self.consumables}\n"
-            f"同类对比：{self.comparison}"
+            f"User ID: {self.user_id}\n"
+            f"Month: {self.month}\n"
+            f"Feature: {self.feature}\n"
+            f"Efficiency: {self.efficiency}\n"
+            f"Consumables: {self.consumables}\n"
+            f"Comparison: {self.comparison}"
         )
 
 
@@ -73,7 +84,10 @@ class BusinessLookupResult(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str
-    user_context: UserContext
+    user_context: Optional[UserContext] = Field(
+        default=None,
+        description="Deprecated. User identity now comes from the bearer token.",
+    )
 
 
 class ChatResponse(BaseModel):
@@ -85,7 +99,10 @@ class ChatResponse(BaseModel):
 
 
 class ReportRequest(BaseModel):
-    user_context: UserContext
+    user_context: Optional[UserContext] = Field(
+        default=None,
+        description="Deprecated. User identity now comes from the bearer token.",
+    )
     month: Optional[str] = None
 
 

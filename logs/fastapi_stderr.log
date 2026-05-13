@@ -2,3 +2,8 @@ INFO:     Started server process [29880]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-05-07 14:34:46,385 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有1条消息。
+2026-05-07 14:34:48,997 - agent -INFO -middleware.py:19 -[tool monitor]执行工具：rag_summarize
+2026-05-07 14:34:48,997 - agent -INFO -middleware.py:20 -[tool monitor]传入参数：{'query': '续航能力强的扫地机器人推荐'}
+2026-05-07 14:34:53,930 - agent -INFO -middleware.py:24 -[tool monitor]工具rag_summarize调用成功
+2026-05-07 14:34:53,935 - agent -INFO -middleware.py:40 -[log_before_model]即将调用模型，带有3条消息。

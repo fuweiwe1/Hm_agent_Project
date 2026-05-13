@@ -1,0 +1,10 @@
+jwt_algorithms:
+  - HS256
+jwt_secret: ""
+jwt_issuer: ""
+jwt_audience: ""
+user_id_claim: user_id
+city_claim: city
+tenant_id_claim: tenant_id
+roles_claim: roles
+clock_skew_seconds: 30

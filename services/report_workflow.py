@@ -5,8 +5,9 @@ from langchain_core.prompts import PromptTemplate
 
 from agent.tools.agent_tools import get_rag_service
 from model.factory import chat_model
-from schemas.app_models import ReportRequest, ReportResponse
+from schemas.app_models import ReportRequest, ReportResponse, UserContext
 from services.business_service import BusinessService
+from utils.logger_handler import logger
 from utils.prompt_loader import load_report_workflow_prompt
 
 
@@ -16,15 +17,33 @@ class ReportWorkflowService:
         self.prompt = PromptTemplate.from_template(load_report_workflow_prompt())
         self.chain = self.prompt | chat_model | StrOutputParser()
 
-    def generate_report(self, request: ReportRequest) -> ReportResponse:
-        profile = self.business_service.get_user_profile(request.user_context)
-        weather = self.business_service.get_weather(request.user_context.city)
+    def generate_report(
+        self,
+        request: ReportRequest,
+        user_context: UserContext | None = None,
+    ) -> ReportResponse:
+        effective_user_context = user_context or request.user_context
+        if effective_user_context is None:
+            raise ValueError("User context is required to generate a report.")
+
+        logger.info("report_generate_start", extra={
+            "user_id": effective_user_context.user_id,
+            "requested_month": request.month,
+        })
+
+        profile = self.business_service.get_user_profile(effective_user_context)
+        weather = self.business_service.get_weather(effective_user_context.city)
 
         preferred_month = request.month or self.business_service.get_current_month()
         lookup_result = self.business_service.resolve_usage_record(
-            request.user_context.user_id,
+            effective_user_context.user_id,
             preferred_month=preferred_month,
         )
+
+        logger.info("report_data_collected", extra={
+            "resolved_month": lookup_result.resolved_month,
+            "used_latest_available": lookup_result.used_latest_available,
+        })
 
         rag_insights = self._collect_rag_insights(lookup_result.usage_record)
         report = self.chain.invoke(
@@ -39,9 +58,13 @@ class ReportWorkflowService:
             }
         )
 
+        logger.info("report_generate_done", extra={
+            "resolved_month": lookup_result.resolved_month,
+        })
+
         return ReportResponse(
             report=report,
-            user_context=request.user_context,
+            user_context=effective_user_context,
             requested_month=preferred_month,
             resolved_month=lookup_result.resolved_month,
             used_latest_available=lookup_result.used_latest_available,

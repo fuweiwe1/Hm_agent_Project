@@ -6,13 +6,12 @@ from langchain_core.prompts import PromptTemplate
 
 from model.factory import chat_model
 from rag.vector_store import VectorStoreService
+from utils.logger_handler import logger
 from utils.prompt_loader import load_rag_prompts
 
 
-def print_prompt(prompt):
-    print("=" * 20)
-    print(prompt.to_string())
-    print("=" * 20)
+def _log_prompt(prompt):
+    logger.debug("rag_prompt_rendered", extra={"prompt": prompt.to_string()[:500]})
     return prompt
 
 
@@ -33,7 +32,7 @@ class RagSummarizeService:
         self.retriever = self.vector_store.get_retriever()
         self.prompt_text = load_rag_prompts()
         self.prompt_template = PromptTemplate.from_template(self.prompt_text)
-        self.chain = self.prompt_template | print_prompt | self.model | StrOutputParser()
+        self.chain = self.prompt_template | _log_prompt | self.model | StrOutputParser()
 
     def retriever_docs(self, query: str) -> list[Document]:
         self._ensure_initialized()
@@ -59,4 +58,5 @@ class RagSummarizeService:
 
 if __name__ == "__main__":
     rag = RagSummarizeService()
-    print(rag.rag_summarize("小户型适合哪些扫地机器人"))
+    result = rag.rag_summarize("小户型适合哪些扫地机器人")
+    logger.info("rag_main_result", extra={"result": result[:200]})

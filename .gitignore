@@ -1,4 +1,5 @@
 config/rag.local.yml
+config/auth.local.yml
 .env
 .env.*
 __pycache__/

@@ -4,6 +4,7 @@ langchain
 langchain-chroma
 langchain-community
 langgraph
+python-jose[cryptography]
 pydantic
 pyyaml
 streamlit

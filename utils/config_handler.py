@@ -46,11 +46,34 @@ def load_business_config(config_path: str = get_abs_path("config/business.yml"),
     return load_yaml_config(config_path, encoding)
 
 
+def load_auth_config(config_path: str = get_abs_path("config/auth.yml"), encoding: str = "utf-8"):
+    config = load_yaml_config(config_path, encoding)
+
+    local_config_path = get_abs_path("config/auth.local.yml")
+    if os.path.exists(local_config_path):
+        config = merge_config(config, load_yaml_config(local_config_path, encoding))
+
+    env_secret = os.getenv("APP_JWT_SECRET") or os.getenv("JWT_SECRET")
+    if env_secret:
+        config["jwt_secret"] = env_secret
+
+    env_issuer = os.getenv("APP_JWT_ISSUER")
+    if env_issuer:
+        config["jwt_issuer"] = env_issuer
+
+    env_audience = os.getenv("APP_JWT_AUDIENCE")
+    if env_audience:
+        config["jwt_audience"] = env_audience
+
+    return config
+
+
 rag_conf = load_rag_config()
 chroma_conf = load_chroma_config()
 prompts_conf = load_prompts_config()
 agent_conf = load_agent_config()
 business_conf = load_business_config()
+auth_conf = load_auth_config()
 
 
 if __name__ == "__main__":

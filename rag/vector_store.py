@@ -91,5 +91,4 @@ if __name__ == "__main__":
     retriever = vs.get_retriever()
     res = retriever.invoke("避障")
     for r in res:
-        print(r.page_content)
-        print("-" * 20)
+        logger.info("retriever_result", extra={"content": r.page_content[:200]})
