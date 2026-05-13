@@ -51,6 +51,11 @@ report_workflow = ReportWorkflowService(business_service)
 
 @app.get("/health", response_model=HealthResponse)
 def health_check():
+    try:
+        business_service.list_user_ids()
+    except Exception as exc:
+        logger.error("health_check_db_failed", extra={"error": str(exc)[:200]})
+        raise HTTPException(status_code=503, detail="database unhealthy") from exc
     return HealthResponse(status="ok")
 
 
